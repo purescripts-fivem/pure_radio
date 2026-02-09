@@ -1,2 +1,1 @@
-# pure_radio
-Purescripts Radio
+# lua-web-boilerplate
