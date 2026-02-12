@@ -1,16 +1,21 @@
-import { fetchNui } from '../utils/fetchNui';
-import { RadioType } from './fave';
+import { Dispatch, SetStateAction } from 'react';
+import { fetchNui } from '../../utils/fetchNui';
+import { RadioData } from '.';
 
-const FaveRadio = ({ radio, id, setRadios }: RadioType) => {
+interface FaveRadioType extends RadioData {
+  setRadios: Dispatch<SetStateAction<RadioData[]>>;
+}
+
+const FaveRadio = ({ radio, id, setRadios }: FaveRadioType) => {
   return (
-    <div className='radioFaveItem'>
-      <div className='radioFaveItemRow'>
+    <div className='radioFave'>
+      <div className='rowFlex'>
         <svg
           onClick={() => {
             void fetchNui('joinFaveRadio', radio);
           }}
           width='0.521vw'
-          height='0.926vh'
+          height='0.521vw'
           viewBox='0 0 10 10'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'>
@@ -19,35 +24,36 @@ const FaveRadio = ({ radio, id, setRadios }: RadioType) => {
             fill='white'
           />
         </svg>
-        <h2>{Number(radio).toFixed(2)}</h2>
+        <h2 className='specialFont'>{radio}</h2>
       </div>
-      <svg
+      <button
+        className='xCursor buttonClass'
         onClick={() => {
-          fetchNui<{ ok: boolean }>('deleteRadio', id)
+          fetchNui<boolean>('deleteFaveRadio', id)
             .then((data) => {
-              if (!data.ok) return;
-
-              setRadios((currentRadios) =>
+              if (!data) return;
+              setRadios((currentRadios: RadioData[]) =>
                 currentRadios.filter((radio) => radio.id !== id),
               );
             })
             .catch((err) => console.error(err));
-        }}
-        className='powerOn'
-        width='0.521vw'
-        height='0.926vh'
-        viewBox='0 0 10 10'
-        fill='none'
-        xmlns='http://www.w3.org/2000/svg'>
-        <path
-          d='M2.17135 9.24264L9.24242 2.17157L7.82821 0.757359L0.757138 7.82843L2.17135 9.24264Z'
-          fill='white'
-        />
-        <path
-          d='M9.24242 7.82843L2.17135 0.757359L0.757138 2.17157L7.82821 9.24264L9.24242 7.82843Z'
-          fill='white'
-        />
-      </svg>
+        }}>
+        <svg
+          width='0.521vw'
+          height='0.521vw'
+          viewBox='0 0 9 9'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'>
+          <path
+            d='M1.41452 8.48483L8.48558 1.41376L7.07137 -0.000453115L0.000302076 7.07061L1.41452 8.48483Z'
+            fill='white'
+          />
+          <path
+            d='M8.48558 7.07061L1.41452 -0.000453115L0.000302076 1.41376L7.07137 8.48483L8.48558 7.07061Z'
+            fill='white'
+          />
+        </svg>
+      </button>
     </div>
   );
 };

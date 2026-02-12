@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNuiEvent } from './hooks/useNuiEvent';
-import NuiEvents from './utils/nuiEvents';
 import { debugData } from './utils/debugData';
 import { fetchNui } from './utils/fetchNui';
 import locales, { setLocale } from './locales';
 import Config, { setConfig } from './config';
+import PageRender from './components/page-render';
+import BottomBar from './components/Components/bottom-bar';
+import TopBar from './components/Components/top-bar';
 
 debugData(
   [
@@ -59,8 +61,16 @@ function App() {
         className='container'
         style={{
           display: visible ? 'flex' : 'none',
-        }}></div>
-      <NuiEvents />
+        }}>
+        <div className={`radio ${anim ? 'slideUpAnim' : 'slideUpHomeAnim'}`}>
+          <img className='radioImg' src='./radio.png' alt='' />
+          <div className='radioMain'>
+            <TopBar />
+            <PageRender />
+            <BottomBar />
+          </div>
+        </div>
+      </div>
     </>
   );
 }

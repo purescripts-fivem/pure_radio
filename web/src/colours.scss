@@ -1,4 +1,79 @@
+$background: #1d1d1d;
+$bottombar: linear-gradient(202.72deg, #1a1a1a 8.58%, #151515 91.42%);
+$bottomBarCircle: #202020;
+$blueGradient: linear-gradient(180deg, #3443a4 0%, #1f265b 100%);
+$blueBorder: #4e64ff;
+$blueBg: #1f265b;
+$blueBgH: #2a3270;
+$topBar: linear-gradient(180deg, #2a2a2a 0%, #212121 100%);
+$topBarBorder: #252525;
+$white: #ffffff;
+$whiteFade: #ffffff75;
+$green: #247b2a;
+$red: #7b242e;
+
 .buttonClass {
   border: none;
   outline: none;
+}
+
+.greenButton {
+  border: none;
+  outline: none;
+  background: linear-gradient(180deg, #1bda31 0%, #1eba28 100%);
+  cursor: pointer;
+
+  p {
+    transition: 0.3s;
+    color: $green;
+  }
+
+  &:hover {
+    background: linear-gradient(180deg, #1ee736 0%, #24ce2f 100%);
+
+    p {
+      color: $whiteFade !important;
+    }
+  }
+}
+
+.redButton {
+  background: linear-gradient(180deg, #da1b32 0%, #c5283b 100%);
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  p {
+    transition: 0.3s;
+    color: $red;
+  }
+
+  &:hover {
+    background: linear-gradient(180deg, #e72037 0%, #df3145 100%);
+
+    p {
+      color: $whiteFade !important;
+    }
+  }
+}
+
+.blueButton {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: $blueBg;
+  transition: 0.3s;
+
+  p {
+    transition: 0.3s;
+    color: $blueBorder;
+  }
+
+  &:hover {
+    background: $blueBgH;
+  }
+}
+
+::-webkit-inner-spin-button {
+  display: none;
 }

@@ -1,0 +1,201 @@
+@use '../colours.scss' as colour;
+
+.radioMain {
+  position: absolute;
+  top: 26.481vh;
+  left: 5vw;
+  width: 10.938vw;
+  height: 24.074vh;
+  border-radius: 0.417vw;
+  background: colour.$background;
+  padding: 6px 11px;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    font-weight: 400;
+    font-size: 16px;
+    color: colour.$white;
+  }
+
+  h3 {
+    font-weight: 400;
+    font-size: 15px;
+    color: colour.$white;
+  }
+
+  .radioTopBarGap {
+    gap: 11px;
+  }
+
+  .radioTopBar {
+    width: 2px;
+    height: 16px;
+    background: colour.$topBar;
+    border: 0.052vw solid colour.$topBarBorder;
+  }
+}
+
+.bottomBarFlex {
+  gap: 5px;
+  justify-content: center;
+}
+
+.bottomCircle {
+  width: 37px;
+  height: 37px;
+
+  background: colour.$bottombar;
+  border: 1.5px solid #202020;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+
+  path {
+    transition: 0.3s;
+  }
+
+  &:hover {
+    background: colour.$blueGradient;
+    border-color: colour.$blueBorder;
+
+    path {
+      fill: colour.$blueBorder;
+    }
+  }
+}
+
+.bottomCircleBlue {
+  background: colour.$blueGradient !important;
+  border-color: colour.$blueBorder !important;
+
+  path {
+    fill: colour.$blueBorder !important;
+  }
+}
+
+.radioHeight {
+  height: 190px;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .connectButton {
+    width: 100%;
+    height: 33px;
+
+    p {
+      font-weight: 700;
+      font-size: 0.725vw;
+    }
+  }
+}
+
+.frequency {
+  width: 100%;
+  height: 99px;
+  background: colour.$topBar;
+  border: 0.052vw solid colour.$topBarBorder;
+
+  input {
+    font-weight: 400;
+    font-size: 58px;
+    color: colour.$white;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    text-align: center;
+    outline: none;
+  }
+}
+
+.radioFave {
+  width: 100%;
+  height: 36px;
+  background: colour.$topBar;
+  border: 0.052vw solid colour.$topBarBorder;
+  padding: 0 0.677vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .rowFlex {
+    gap: 5px;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+}
+
+.faveFlex {
+  flex-direction: column;
+  gap: 6px;
+  display: flex;
+  // flex: 1 auto;
+  height: 144px;
+  overflow-y: auto;
+}
+
+.faveAdd {
+  width: 48px;
+  height: 26px;
+  border-radius: 5px;
+  border: 0.052vw solid colour.$blueBorder;
+  align-self: flex-end;
+  margin-bottom: 4px;
+}
+
+.xCursor {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.settings {
+  width: 100%;
+  height: 63px;
+  background: colour.$topBar;
+  border: 0.052vw solid colour.$topBarBorder;
+  padding: 8px 0.677vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .rowFlex {
+    gap: 8px;
+  }
+}
+
+.settingsSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 140px;
+  height: 8px;
+  background: #1b1b1b;
+  outline: none;
+  cursor: pointer;
+}
+
+.settingsSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.settingsSlider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

@@ -1,3 +1,5 @@
+@use 'colours.scss' as colour;
+
 @font-face {
   font-family: 'Satoshi Variable';
   src: url('/Satoshi-Variable.ttf') format('truetype-variations');
@@ -27,4 +29,62 @@
   height: 100vh;
   width: 100%;
   flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.radio {
+  position: relative;
+}
+
+.radioImg {
+  width: 20.052vw;
+  height: 66.852vh;
+}
+
+.rowFlex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rowFlexBetween {
+  justify-content: space-between;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    // left: 0;
+    // margin-left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpHome {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+    display: none;
+  }
+}
+
+.slideUpHomeAnim {
+  animation: slideUpHome 0.5s forwards !important;
+}
+
+.slideUpAnim {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

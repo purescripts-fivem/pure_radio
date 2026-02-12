@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 
-description 'Boilerplate'
-author 'blaze'
+description 'pure_radio'
+author 'purescripts.net'
 version '1.0.0'
 
 lua54 'yes'

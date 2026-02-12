@@ -207,7 +207,7 @@ RegisterNuiCallback("fetchFavouriteRadios", function(_, cb)
   cb({ ok = true, radios = radios})
 end)
 
-RegisterNUICallback('deleteRadio', function (id, cb)
+RegisterNUICallback('deleteFaveRadio', function (id, cb)
   local success, err = lib.callback.await("radios:deleteFavouriteRadio", false, id)
   if err ~= nil then
     TriggerEvent("notification", "Failed to delete favourite radio!", "error")
