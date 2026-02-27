@@ -1,59 +1,62 @@
-lib.callback.register('pure_radio:deleteFaveRadio', function (playerId, id)
-    -- local characterId = exports.framework:GetCharacterId(source)
-    -- if not characterId or type(id) ~= "number" then
-    -- return nil, "Failed to favourite radio channel!"
-    -- end
+local favouriteRadios = {}
 
-    -- local currentRadios = favouriteRadios[source] or {}
-    -- if lib.array.find(currentRadios, function(channel)
-    -- return tonumber(channel.radio) == radio
-    -- end, false) ~= nil then
-    -- return nil, "You can't delete a radio that isn't favourited!"
-    -- end
+function LoadCharacter(playerId, charId)
+    local radios = MySQL.query.await('SELECT `id`, `radio` FROM `pure_radios_faves` WHERE charId = ?', {charId})
+    if not radios then return end
+    favouriteRadios[playerId] = radios
+end
 
-    -- MySQL.prepare.await([[
-    -- DELETE
-    -- FROM `radios_faves`
-    -- WHERE `charId` = ? AND `id` = ?;
-    -- ]], {characterId, id})
-    -- favouriteRadios[source] = lib.array.filter(currentRadios, function(channel)
-    -- return channel.id ~= id
-    -- end)
+function RemoveCharacter(playerId)
+    favouriteRadios[playerId] = nil
+end
+
+lib.callback.register('pure_radio:deleteFaveRadio', function (playerId, radio)
+    local charId = GetPlayerCharId(playerId)
+    if not charId then return end
+    local currentRadios = favouriteRadios[playerId] or {}
+    local index = 0
+    for i = 1, #currentRadios do
+        if (currentRadios[i].radio == radio) then
+            index = i
+        end
+    end
+    if (index == 0) then return end
+    table.remove(currentRadios, index)
+    MySQL.query.await('DELETE FROM `pure_radios_faves` WHERE id = ? AND charId = ?', {radio, charId})
 end)
 
 lib.callback.register('pure_radio:fetchRadios', function (playerId)
-    return false
+    return favouriteRadios[playerId] or {}
 end)
 
-lib.callback.register('pure_radio:addFaveRadio', function (playerId, id)
-    -- local characterId = exports.framework:GetCharacterId(source)
-    -- if not characterId or type(radio) ~= "number" then
-    -- return nil, "Failed to favourite radio channel!"
-    -- end
+lib.callback.register('pure_radio:addFaveRadio', function (playerId, radio)
+    local charId = GetPlayerCharId(playerId)
+    if not charId then return end
+    local currentRadios = favouriteRadios[playerId] or {}
 
-    -- local currentRadios = favouriteRadios[source] or {}
+    for i = 1, #currentRadios do
+        if (currentRadios[i].radio == radio) then
+            return
+        end
+    end
 
-    -- -- ensure that they're not attempting to favourite a radio that they already have favourited
-    -- if lib.array.find(currentRadios, function(channel)
-    -- return tonumber(channel.radio) == radio
-    -- end, false) ~= nil then
-    -- return nil, "You cannot favourite the same radio twice!"
-    -- end
+    if (#currentRadios >= Config.maxFaves) then return end
 
-    -- if #currentRadios >= 6 then
-    -- return nil, "You cannot favourite more than 6 radios"
-    -- end
+    local id = MySQL.insert.await('INSERT INTO `pure_radios_faves` (`charId`, `radio`) VALUES (?, ?)', {charId, radio})
+    currentRadios[#currentRadios+1] = {id = id, radio = radio}
+    favouriteRadios[playerId] = currentRadios
+    return favouriteRadios[playerId]
+end)
 
-    -- local id = MySQL.insert.await([[
-    -- INSERT IGNORE
-    -- INTO `radios_faves` (`charId`, `radio`)
-    -- VALUES(?, ?);
-    -- ]], { characterId, radio })
-    -- if not id then
-    -- return nil, "Failed to favourite radio channel, please try again!"
-    -- end
+CreateThread(function()
+  Wait(250)
+  for _, playerId in ipairs(GetPlayers()) do
+    local charId = GetPlayerCharId(playerId)
+    if not charId then
+      goto skip__character
+    end
 
-    -- currentRadios[#currentRadios + 1] = { radio = radio, id = id }
-    -- favouriteRadios[source] = currentRadios
-    -- return { radios = favouriteRadios[source] }, nil
+    LoadCharacter(tonumber(playerId), charId)
+    ::skip__character::
+  end
 end)

@@ -15,7 +15,7 @@ const Setting = ({ show }: { show: boolean }) => {
       void fetchNui('setVolumne', value);
     },
     [value],
-    500
+    500,
   );
 
   useNuiEvent('initData', (data: InitDataType) => {

@@ -1,9 +1,18 @@
 Config = {}
 
 Config = {
+    --[[
+        esx,
+        qbox,
+        qbcore
+    ]]
+    framework = 'qbox',
+
     inventory = 'ox',
 
     maxFrequency = 1000,
+
+    maxFaves = 6,
 
     restrictedChannels = {
         [1] = {

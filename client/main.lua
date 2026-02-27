@@ -14,13 +14,13 @@ end
 
 function ConnectRadio(channel)
     RadioChannel = channel
-    -- if onRadio then
-    --     exports['voip']:setRadioChannel(0)
-    -- else
-    --     onRadio = true
-    --     exports['voip']:setVoiceProperty('radioEnabled', true)
-    -- end
-    -- exports['voip']:setRadioChannel(channel)
+    if onRadio then
+        ConnectToRadio(0)
+    else
+        onRadio = true
+        exports['pma-voice']:setVoiceProperty('radioEnabled', true)
+    end
+    ConnectToRadio(channel)
     Notify('You\'re connected to: ' .. channel .. ' MHz', 'success')
 end
 
@@ -28,8 +28,8 @@ function LeaveRadio()
     TriggerEvent('InteractSound_CL:PlayOnOne', 'click', 0.6)
     RadioChannel = 0
     onRadio = false
-    -- exports['voip']:setRadioChannel(0)
-    -- exports['voip']:setVoiceProperty('radioEnabled', false)
+    ConnectToRadio(0)
+    exports['pma-voice']:setVoiceProperty('radioEnabled', false)
     Notify('You left the channel.' , 'error')
 end
 
@@ -63,6 +63,7 @@ local function calculateTimeToDisplay()
 end
 
 function ToggleRadio(toggle)
+    SetupUI()
     RadioMenu = toggle
     SetNuiFocus(RadioMenu, RadioMenu)
     if RadioMenu then

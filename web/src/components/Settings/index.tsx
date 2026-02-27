@@ -1,11 +1,25 @@
 import { useState } from 'react';
 import locales from '../../locales';
+import useDebounce from '../../utils/useDebounce';
+import { fetchNui } from '../../utils/fetchNui';
+import { useNuiEvent } from '../../hooks/useNuiEvent';
 
 const Settings = () => {
   const [volume, setVolume] = useState(50);
+  const [clicks, setClicks] = useState(false);
   const min = 0;
   const max = 100;
   const percent = ((volume - min) / (max - min)) * 100;
+
+  useDebounce(
+    () => {
+      void fetchNui('setVolumne', volume);
+    },
+    [volume],
+    500,
+  );
+
+  useNuiEvent('setClicks', (data: boolean) => setClicks(data));
 
   return (
     <div className='radioHeight'>
@@ -13,8 +27,8 @@ const Settings = () => {
         <h2 className='specialFont'>{locales.volume}</h2>
         <div className='rowFlex'>
           <svg
-            width='12'
-            height='12'
+            width='0.625vw'
+            height='0.625vw'
             viewBox='0 0 12 12'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'>
@@ -41,9 +55,24 @@ const Settings = () => {
           />
         </div>
       </div>
-      <div className='settings'>
-        <h2 className='specialFont'>{locales.radioClicks}</h2>
-        fart
+      <div className='settings settingsRow'>
+        <div className='settingsCol'>
+          <h2 className='specialFont'>{locales.radioClicks}</h2>
+          <h3>{locales.disableClicks}</h3>
+        </div>
+        <div
+          className='radioToggle'
+          onClick={() => {
+            void fetchNui('radioClicksNew', !clicks);
+            setClicks((prev) => !prev);
+          }}>
+          <div
+            className={
+              clicks
+                ? 'radioToggleBlob radioBlobRight'
+                : 'radioToggleBlob radioBlobLeft'
+            }></div>
+        </div>
       </div>
     </div>
   );

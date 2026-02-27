@@ -400,7 +400,7 @@ RegisterCommand('+increaseRadioChannel', function()
         connecttoradio(newChannel)
         TriggerServerEvent("logs:server:createlog", "radiologs", "Radio Logs", "red", "Steam Name: **".. GetPlayerName(PlayerId()) .. "**\n**New Channel:** `".. newChannel .. '`', false)
     end
-end)
+end, false)
 RegisterKeyMapping('+increaseRadioChannel', 'Increase Radio Freq', 'keyboard', 'F5')
 
 RegisterCommand('+decreaseRadioChannel', function()
@@ -421,7 +421,7 @@ RegisterCommand('+decreaseRadioChannel', function()
         connecttoradio(newChannel)
         TriggerServerEvent("logs:server:createlog", "radiologs", "Radio Logs", "red", "Steam Name: **".. GetPlayerName(PlayerId()) .. "**\n**New Channel:** `".. newChannel .. '`', false)
     end
-end)
+end, false)
 RegisterKeyMapping('+decreaseRadioChannel', 'Decrease Radio Freq', 'keyboard', 'F6')
 
 function ChangeChannel(channel)

@@ -10,6 +10,8 @@ $topBarBorder: #252525;
 $white: #ffffff;
 $whiteFade: #ffffff75;
 $green: #247b2a;
+$greenGrad: linear-gradient(180deg, #1bda31 0%, #1eba28 100%);
+$redGrad: linear-gradient(180deg, #da1b32 0%, #c5283b 100%);
 $red: #7b242e;
 
 .buttonClass {
@@ -20,7 +22,7 @@ $red: #7b242e;
 .greenButton {
   border: none;
   outline: none;
-  background: linear-gradient(180deg, #1bda31 0%, #1eba28 100%);
+  background: $greenGrad;
   cursor: pointer;
 
   p {
@@ -38,7 +40,7 @@ $red: #7b242e;
 }
 
 .redButton {
-  background: linear-gradient(180deg, #da1b32 0%, #c5283b 100%);
+  background: $redGrad;
   border: none;
   outline: none;
   cursor: pointer;

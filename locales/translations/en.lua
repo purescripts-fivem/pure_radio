@@ -1,0 +1,10 @@
+Locales['en'] = {
+    noFreq = "No Frequency",
+    connected = "Connected",
+    favorites = "Favorites",
+    settings = "Settings",
+    addPlus = "+ Add",
+    volume = "Volume",
+    radioClicks = "Radio Clicks",
+    disableClicks = "Disable Radio Clicks"
+}

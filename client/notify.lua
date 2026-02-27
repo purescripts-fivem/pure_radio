@@ -1,5 +1,6 @@
 function Notify(text, success)
-    return lib.Notify({
+    print('Notif: ', text, success)
+    return lib.notify({
         type = success,
         title = text,
     })

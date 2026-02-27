@@ -3,13 +3,13 @@ import usePageStore from '../pageStore';
 import Battery from './battery';
 import Time from './time';
 
-const langMap = {
-  fave: locales.favorites,
-  settings: locales.settings,
-};
-
 const TopBar = () => {
   const { page } = usePageStore();
+  const langMap = {
+    fave: locales.favorites,
+    settings: locales.settings,
+  };
+
   return (
     <div className='rowFlex rowFlexBetween'>
       <Time />

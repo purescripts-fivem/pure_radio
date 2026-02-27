@@ -10,7 +10,7 @@ RegisterCommand('+increaseRadioChannel', function()
 
     local newChannel = RadioChannel + 1
     if newChannel > Config.maxFrequency then newChannel = Config.maxFrequency end
-    local job = 'lspd'-- TODO
+    local job = GetPlayerJob()
     CheckAndConnectRadioChannel(newChannel, job)
 end, false)
 RegisterKeyMapping('+increaseRadioChannel', 'Increase Radio Freq', 'keyboard', 'F5')
@@ -21,7 +21,7 @@ RegisterCommand('+decreaseRadioChannel', function()
 
     local newChannel = RadioChannel - 1
     if newChannel < 1 then newChannel = 1 end
-    local job = 'lspd'-- TODO
+    local job = GetPlayerJob()
     CheckAndConnectRadioChannel(newChannel, job)
 end, false)
 RegisterKeyMapping('+decreaseRadioChannel', 'Decrease Radio Freq', 'keyboard', 'F6')

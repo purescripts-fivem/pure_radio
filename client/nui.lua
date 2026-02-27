@@ -1,6 +1,6 @@
 RegisterNUICallback('joinRadio', function(data, cb)
     cb(1)
-    local job = 'lspd'-- TODO
+    local job = GetPlayerJob()
     CheckAndConnectRadioChannel(tonumber(data), job)
 end)
 
@@ -10,7 +10,7 @@ RegisterNUICallback('joinFaveRadio', function (data, cb)
         action = 'setRadio',
         data = data
     })
-    local job = 'lspd'-- TODO
+    local job = GetPlayerJob()
     CheckAndConnectRadioChannel(tonumber(data), job)
 end)
 
@@ -49,3 +49,36 @@ RegisterNUICallback('addFaveRadio', function (_, cb)
         data = radios
     })
 end)
+
+RegisterNUICallback('setVolumne', function (data, cb)
+    cb(1)
+    if data >= 10 and data <= 95 then
+        TriggerEvent('InteractSound_CL:PlayOnOne', 'radiooff', 0.2)
+		RadioVolume = data
+        Notify('Volume Updated: ' .. RadioVolume, 'success')
+		exports['pma-voice']:setRadioVolume(RadioVolume)
+	else
+        Notify('The radio cannot exceed these values', 'error')
+	end
+end)
+
+local hasUiLoaded = false
+function SetupUI()
+    if (hasUiLoaded) then return end
+
+    local data = {
+        locales = GetLocale(),
+        config = Config,
+    }
+
+    SendReactMessage('setInitData', data)
+    hasUiLoaded = true
+
+    local micClicks = exports['pma-voice']:getRadioClicks()
+    SendNUIMessage({
+        action = 'setClicks',
+        data = {
+            clicks = micClicks
+        }
+    })
+end

@@ -14,14 +14,16 @@ const Fave = () => {
   useEffect(() => {
     fetchNui<RadioData[]>('fetchFavouriteRadios')
       .then((data) => {
-        if (!data) return;
-
+        if (!data) return setRadios([]);
+        if (data.length === 0) return setRadios([]);
         setRadios(data);
       })
-      .catch(console.error);
+      .catch((error) => console.log('fetchFavouriteRadios error: ', error));
   }, []);
 
   useNuiEvent<RadioData[]>('setFaves', (data) => {
+    if (!data) return setRadios([]);
+    if (data.length === 0) return setRadios([]);
     setRadios(data);
   });
 

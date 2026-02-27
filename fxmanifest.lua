@@ -11,6 +11,7 @@ game 'gta5'
 ui_page 'web/build/index.html'
 
 client_scripts {
+  '@qbx_core/modules/playerdata.lua', -- ENABLE IF USING QBOX
   'client/**/*',
 }
 
@@ -22,6 +23,8 @@ server_scripts {
 shared_scripts {
   '@ox_lib/init.lua', -- for oxlib
   'shared_functions.lua',
+  'locales/locale.lua',
+  'locales/translations/*.lua',
   'config/*.lua'
 }
 
