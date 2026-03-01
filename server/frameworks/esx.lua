@@ -44,3 +44,14 @@ function GetPlayerCharId(playerId)
     -- In ESX Legacy it’s .identifier, in some forks it’s getIdentifier()
     return player.getIdentifier and player.getIdentifier() or player.identifier
 end
+
+RegisterNetEvent('esx:playerLoaded', function(source)
+    local src = source
+    local player = GetPlayerCharId(src)
+    if not player then return end
+    LoadCharacter(player.PlayerData.citizenid)
+end)
+
+RegisterNetEvent('esx:playerLogout', function(source)
+    RemoveCharacter(source)
+end)
