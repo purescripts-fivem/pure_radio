@@ -62,7 +62,7 @@ local function calculateTimeToDisplay()
     return string.format('%s:%s', hour, minute)
 end
 
-function ToggleRadio(toggle)
+function ToggleRadio(toggle, dontSend)
     SetupUI()
     RadioMenu = toggle
     SetNuiFocus(RadioMenu, RadioMenu)
@@ -74,14 +74,17 @@ function ToggleRadio(toggle)
         })
     else
         toggleRadioAnimation(false)
-        SendNUIMessage({
-            action = 'setVisible',
-            data = false
-        })
+        if (not dontSend) then
+            SendNUIMessage({
+                action = 'setVisible',
+                data = false
+            })
+        end
+
     end
 end
 
-RegisterNUICallback('escape', function(_, cb)
-    ToggleRadio(false)
+RegisterNUICallback('exit', function(_, cb)
+    ToggleRadio(false, true)
     cb('ok')
 end)

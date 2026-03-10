@@ -2,6 +2,7 @@ function CheckAndConnectRadioChannel(radio, job)
     if radio > Config.maxFrequency then Notify('You can not connect to this signal!', 'error') return end
     if Config.restrictedChannels[radio] and not Config.restrictedChannels[radio][job] then Notify('You can not connect to this signal!', 'error') return end
     ConnectRadio(radio)
+    return true
 end
 
 RegisterCommand('+increaseRadioChannel', function()
@@ -29,7 +30,7 @@ RegisterKeyMapping('+decreaseRadioChannel', 'Decrease Radio Freq', 'keyboard', '
 local function useRadio()
     local hasRadio = CheckRadioItem()
     if not hasRadio then Notify('You do not have a radio on you.', 'error') return end
-    ToggleRadio(not RadioMenu)
+    ToggleRadio(true)
 end
 
 RegisterNetEvent('radio:use', function()

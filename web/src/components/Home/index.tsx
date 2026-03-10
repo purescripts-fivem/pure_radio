@@ -23,8 +23,10 @@ const Home = () => {
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               if (!channel) return;
-              void fetchNui('joinRadio', channel);
-              setCon(true);
+              fetchNui('joinRadio', channel).then((data) => {
+                if (!data) return;
+                setCon(true);
+              });
             }
           }}
         />
@@ -40,8 +42,10 @@ const Home = () => {
           }
 
           if (!channel) return;
-          void fetchNui('joinRadio', channel);
-          setCon(true);
+          fetchNui('joinRadio', channel).then((data) => {
+            if (!data) return;
+            setCon(true);
+          });
         }}>
         <p>{con ? 'Disconnect' : 'Connect'}</p>
       </button>
