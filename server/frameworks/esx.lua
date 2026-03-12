@@ -49,7 +49,7 @@ RegisterNetEvent('esx:playerLoaded', function(source)
     local src = source
     local player = GetPlayerCharId(src)
     if not player then return end
-    LoadCharacter(player.PlayerData.citizenid)
+    LoadCharacter(src, player.PlayerData.citizenid)
 end)
 
 RegisterNetEvent('esx:playerLogout', function(source)

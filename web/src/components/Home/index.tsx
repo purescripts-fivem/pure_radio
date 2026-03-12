@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNuiEvent } from '../../hooks/useNuiEvent';
 import { fetchNui } from '../../utils/fetchNui';
 
-const Home = () => {
+const Home = ({ show }: { show: boolean }) => {
   const [con, setCon] = useState(false);
   const [channel, setChannel] = useState<number | undefined>(undefined);
 
@@ -10,6 +10,8 @@ const Home = () => {
     setChannel(data);
     setCon(true);
   });
+
+  if (!show) return null;
 
   return (
     <div className='radioHeight'>

@@ -63,6 +63,13 @@ RegisterNUICallback('setVolumne', function (data, cb)
 	end
 end)
 
+RegisterNUICallback('radioClicksNew', function (data, cb)
+    cb(1)
+    local text = data and 'un-muted!' or 'muted!'
+    exports['pma-voice']:setVoiceProperty('micClicks', data)
+    Notify('Radio Clicks ' .. text, 'success')
+end)
+
 local hasUiLoaded = false
 function SetupUI()
     if (hasUiLoaded) then return end
@@ -83,3 +90,10 @@ function SetupUI()
         }
     })
 end
+
+RegisterNetEvent('pure_radio:sendRadios', function (data)
+    SendNUIMessage({
+        action = 'setFaves',
+        data = data
+    })
+end)

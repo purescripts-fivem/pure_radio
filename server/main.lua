@@ -4,6 +4,7 @@ function LoadCharacter(playerId, charId)
     local radios = MySQL.query.await('SELECT `id`, `radio` FROM `pure_radios_faves` WHERE charId = ?', {charId})
     if not radios then return end
     favouriteRadios[playerId] = radios
+    TriggerClientEvent('pure_radio:sendRadios', playerId, radios)
 end
 
 function RemoveCharacter(playerId)
@@ -49,14 +50,12 @@ lib.callback.register('pure_radio:addFaveRadio', function (playerId, radio)
 end)
 
 CreateThread(function()
-  Wait(250)
-  for _, playerId in ipairs(GetPlayers()) do
-    local charId = GetPlayerCharId(playerId)
-    if not charId then
-      goto skip__character
+    Wait(250)
+    for _, playerId in ipairs(GetPlayers()) do
+        local src = tonumber(playerId)
+        local charId = GetPlayerCharId(src)
+        if charId then
+            LoadCharacter(src, charId)
+        end
     end
-
-    LoadCharacter(tonumber(playerId), charId)
-    ::skip__character::
-  end
 end)

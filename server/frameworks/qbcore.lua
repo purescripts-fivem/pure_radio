@@ -14,7 +14,7 @@ RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function()
     Wait(3000)
     local player = GetPlayerCharId(src)
     if not player then return end
-    LoadCharacter(player.PlayerData.citizenid)
+    LoadCharacter(src, player.PlayerData.citizenid)
 end)
 
 RegisterNetEvent('QBCore:Server:OnPlayerUnload', function()

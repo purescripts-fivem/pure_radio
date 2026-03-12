@@ -4,7 +4,7 @@ import useDebounce from '../../utils/useDebounce';
 import { fetchNui } from '../../utils/fetchNui';
 import { useNuiEvent } from '../../hooks/useNuiEvent';
 
-const Settings = () => {
+const Settings = ({ show }: { show: boolean }) => {
   const [volume, setVolume] = useState(50);
   const [clicks, setClicks] = useState(false);
   const min = 0;
@@ -20,6 +20,8 @@ const Settings = () => {
   );
 
   useNuiEvent('setClicks', (data: boolean) => setClicks(data));
+
+  if (!show) return null;
 
   return (
     <div className='radioHeight'>

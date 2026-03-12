@@ -1,40 +1,20 @@
-import { lazy, Suspense } from 'react';
 import '@/styles.scss';
 import usePageStore from './pageStore';
 import './Radio.scss';
-
-const Home = lazy(() => import('./Home/index'));
-const Fave = lazy(() => import('./Fave/index'));
-const Settings = lazy(() => import('./Settings/index'));
-
-const renderApp = (app: string) => {
-  switch (app) {
-    case 'home':
-      return (
-        <Suspense>
-          <Home />
-        </Suspense>
-      );
-    case 'fave':
-      return (
-        <Suspense>
-          <Fave />
-        </Suspense>
-      );
-    case 'settings':
-      return (
-        <Suspense>
-          <Settings />
-        </Suspense>
-      );
-    default:
-      return <div>no app found</div>;
-  }
-};
+import Home from './Home';
+import Fave from './Fave';
+import Settings from './Settings';
 
 const PageRender = () => {
   const { page } = usePageStore();
-  return renderApp(page);
+  // return renderApp(page);
+  return (
+    <>
+      <Home show={page === 'home'} />
+      <Fave show={page === 'fave'} />
+      <Settings show={page === 'settings'} />
+    </>
+  );
 };
 
 export default PageRender;
