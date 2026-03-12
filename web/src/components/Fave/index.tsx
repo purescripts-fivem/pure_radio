@@ -31,7 +31,7 @@ const Fave = ({ show }: { show: boolean }) => {
 
   return (
     <div className='radioHeight'>
-      {radios.length > 1 ? (
+      {radios.length >= 1 ? (
         <>
           <div className='faveFlex'>
             {radios.map((radio) => (

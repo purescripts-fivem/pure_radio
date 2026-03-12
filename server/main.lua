@@ -17,13 +17,14 @@ lib.callback.register('pure_radio:deleteFaveRadio', function (playerId, radio)
     local currentRadios = favouriteRadios[playerId] or {}
     local index = 0
     for i = 1, #currentRadios do
-        if (currentRadios[i].radio == radio) then
+        if (tonumber(currentRadios[i].radio) == tonumber(radio)) then
             index = i
         end
     end
     if (index == 0) then return end
     table.remove(currentRadios, index)
-    MySQL.query.await('DELETE FROM `pure_radios_faves` WHERE id = ? AND charId = ?', {radio, charId})
+    MySQL.query.await('DELETE FROM `pure_radios_faves` WHERE radio = ? AND charId = ?', {radio, charId})
+    return true
 end)
 
 lib.callback.register('pure_radio:fetchRadios', function (playerId)
@@ -36,7 +37,7 @@ lib.callback.register('pure_radio:addFaveRadio', function (playerId, radio)
     local currentRadios = favouriteRadios[playerId] or {}
 
     for i = 1, #currentRadios do
-        if (currentRadios[i].radio == radio) then
+        if (tonumber(currentRadios[i].radio) == tonumber(radio)) then
             return
         end
     end

@@ -6,7 +6,7 @@ interface FaveRadioType extends RadioData {
   setRadios: Dispatch<SetStateAction<RadioData[]>>;
 }
 
-const FaveRadio = ({ radio, id, setRadios }: FaveRadioType) => {
+const FaveRadio = ({ radio, setRadios }: FaveRadioType) => {
   return (
     <div className='radioFave'>
       <div className='rowFlex'>
@@ -29,11 +29,11 @@ const FaveRadio = ({ radio, id, setRadios }: FaveRadioType) => {
       <button
         className='xCursor buttonClass'
         onClick={() => {
-          fetchNui<boolean>('deleteFaveRadio', id)
+          fetchNui<boolean>('deleteFaveRadio', radio)
             .then((data) => {
               if (!data) return;
               setRadios((currentRadios: RadioData[]) =>
-                currentRadios.filter((radio) => radio.id !== id),
+                currentRadios.filter((data) => data.radio !== radio),
               );
             })
             .catch((err) => console.error(err));

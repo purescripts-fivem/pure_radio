@@ -2,6 +2,10 @@ RegisterNUICallback('joinRadio', function(data, cb)
     local job = GetPlayerJob()
     local success = CheckAndConnectRadioChannel(tonumber(data), job)
     cb(success)
+    SendNUIMessage({
+        action = 'setConnected',
+        data = true
+    })
 end)
 
 RegisterNUICallback('joinFaveRadio', function (data, cb)
@@ -12,6 +16,10 @@ RegisterNUICallback('joinFaveRadio', function (data, cb)
     SendNUIMessage({
         action = 'setRadio',
         data = data
+    })
+    SendNUIMessage({
+        action = 'setConnected',
+        data = true
     })
 end)
 

@@ -31,6 +31,10 @@ function LeaveRadio()
     ConnectToRadio(0)
     exports['pma-voice']:setVoiceProperty('radioEnabled', false)
     Notify('You left the channel.' , 'error')
+    SendNUIMessage({
+        action = 'setConnected',
+        data = false
+    })
 end
 
 local function toggleRadioAnimation(pState)
