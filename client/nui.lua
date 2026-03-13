@@ -90,13 +90,13 @@ function SetupUI()
     SendReactMessage('setInitData', data)
     hasUiLoaded = true
 
-    local micClicks = exports['pma-voice']:getRadioClicks()
-    SendNUIMessage({
-        action = 'setClicks',
-        data = {
-            clicks = micClicks
-        }
-    })
+    -- local micClicks = exports['pma-voice']:getRadioClicks()
+    -- SendNUIMessage({
+    --     action = 'setClicks',
+    --     data = {
+    --         clicks = micClicks
+    --     }
+    -- })
 end
 
 RegisterNetEvent('pure_radio:sendRadios', function (data)
